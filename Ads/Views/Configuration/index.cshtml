@@ -1,0 +1,153 @@
+﻿@{
+    Layout = null;
+}
+@model List<Ads.Database.Advert>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/advert.css" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/color-picker/bootstrap-colorpicker.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/Scripts/angular.js"></script>
+    <script src="~/Scripts/Ads/adsProperties.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <script src="~/color-picker/bootstrap-colorpicker.min.js"></script>
+</head>
+
+<body>
+    <div ng-app="adsApp" ng-controller="adsCtrl">
+        <div id="header" class="full-width">
+            <div class="tab-container">
+                <div ng-repeat="advert in sizes" class="tab-wrapper">
+                    <button 
+                        id="{{advert.Id}}" 
+                        ng-click="getAdvert(advert.Id)" 
+                        class="tab-item" 
+                        ng-disabled="editingNew && advert.Id!=0"
+                        ng-class="{'active':advert.Id==currentAdvert.Id}">{{advert.Width}} / {{advert.Height}}</button>
+                    <span ng-click="removeAdvert(advert.Id)" class="glyphicon glyphicon-trash c-light-blue" ng-disabled="editingNew && advert.Id!=0"></span>
+                </div>
+
+                <button ng-click="addAdvert()" class="tab-item" ng-disabled="editingNew">Add <span class="glyphicon glyphicon-plus c-light-blue"></span></button>
+            </div>
+            <div id="alert" ng-class="alert.level" ng-show="alert.show">
+                {{alert.message}}
+                <a href="" id="closeAlert" ng-click="alert.show=false"><i class="fas fa-times"></i></a>
+            </div>
+            <div id="content">
+                <div id="preview" class="full-width">
+                    <section class="my-advert">
+                        <div class="container-fluid">
+                            <div
+                                 id="size-{{currentAdvert.Size}}"
+                                ng-if="currentAdvert.Id!=undefined"
+                                class="patrat"
+                                 style="width:{{currentAdvert.Width}}px;
+                                     height:{{currentAdvert.Height}}px;
+                                     background-image:url('{{currentAdvert.BackgroundImage}}');
+                                     background-color:{{currentAdvert.BackgroungColor}}">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="logo">
+                                            <img ng-if="currentAdvert.Logo && currentAdvert.Logo!=''" ng-src="{{currentAdvert.Logo}}" alt="logo" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="slider">
+                                    <div ng-repeat="i in range(0, products.length, step)" class="product-wrapper">
+                                        <div class="product">
+                                            <div class="title" style="color:{{currentAdvert.TitleColor}}">{{products[i].Title}}</div>
+                                            <div class="imagine-pret">
+                                                <img ng-src="{{products[i].Image}}" alt="{{products[i].Title}}" />
+                                                <div class="price" style="color:{{currentAdvert.PriceColor}}">{{products[i].PriceCurrency}}</div>
+                                            </div>
+                                            <div class="buton-cumpara">
+                                                <a ng-href="{{products[i].Url}}" target="_blank" style="color:{{currentAdvert.ButtonColor}}">{{currentAdvert.ButtonText}}</a>
+                                            </div>
+                                        </div>
+                                        <div class="product" ng-if="step > 1 && i+1<products.length">
+                                            <div class="title" style="color:{{currentAdvert.TitleColor}}">{{products[i+1].Title}}</div>
+                                            <div class="imagine-pret">
+                                                <img ng-src="{{products[i+1].Image}}" alt="{{products[i+1].Title}}" />
+                                                <div class="price" style="color:{{currentAdvert.PriceColor}}">{{products[i+1].PriceCurrency}}</div>
+                                            </div>
+                                            <div class="buton-cumpara">
+                                                <a ng-href="{{products[i+1].Url}}" target="_blank" style="color:{{currentAdvert.ButtonColor}}">{{currentAdvert.ButtonText}}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <div id="configuration">
+                <fieldset ng-if="editingNew">
+                    <label class="control-label" for="Size">Advert size</label>
+                    <select ng-model="currentAdvert.Size" class="form-control">
+                        <option value="300x250">300x250</option>
+                        <option value="336x280">336x280</option>
+                        <option value="728x90">728x90</option>
+                        <option value="300x600">300x600</option>
+                        <option value="320x100">320x100</option>
+                    </select>
+                </fieldset>
+                <fieldset>
+                    <label class="control-label" for="BackgroungColor">Backgroung color</label>
+                    <input class="form-control color-picker" type="text" id="cp1" ng-model="currentAdvert.BackgroungColor" />
+                </fieldset>
+                <fieldset class="browse">
+                    <label class="control-label" for="BackgroundImage">Background image</label>
+                    <a ng-click="removeImage('BackgroundImage')">remove</a>
+                    <label class="btn btn-default btn-file browse-input">
+                        Browse <input type="file" name="BackgroundImage" id="BackgroundImage" onchange="angular.element(this).scope().upload(this)">
+                    </label>
+                </fieldset>
+                <fieldset class="browse">
+                    <label class="control-label" for="Logo">Logo</label>
+                    <a ng-click="removeImage('Logo')">remove</a>
+                    <label class="btn btn-default btn-file browse-input">
+                        Browse <input type="file" name="Logo" id="Logo" onchange="angular.element(this).scope().upload(this)">
+                    </label>
+                </fieldset>
+                <fieldset>
+                    <label class="control-label" for="TitleColor">Product name color</label>
+                    <input type="text" class="form-control color-picker" id="cp7" ng-model="currentAdvert.TitleColor"/>
+                </fieldset>
+                
+                <fieldset>
+                    <label class="control-label" for="ButtonText">Button text</label>
+                    <input class="form-control" type="text" name="ButtonText" id="ButtonText" ng-model="currentAdvert.ButtonText" />
+                </fieldset>
+                <fieldset>
+                    <label class="control-label" for="ButtonColor">Button color</label>
+                    <input class="form-control color-picker" type="text" id="cp5" ng-model="currentAdvert.ButtonColor" />
+                </fieldset>
+                <fieldset>
+                    <label class="control-label" for="PriceFormat">Price format</label>
+                    <select class="form-control select-priceformat" name="PriceFormat" id="PriceFormat" ng-model="currentAdvert.PriceFormat">
+                        <option value="{currency}{price}">$100</option>
+                        <option value="{price}{currency}">100$</option>
+                        <option value="{currency} {price}">$ 100</option>
+                        <option value="{price} {currency}">100 $</option>
+                    </select>
+                </fieldset>
+                <fieldset>
+                    <label class="control-label" for="PriceColor">Price color</label>
+                    <input type="text" class="form-control color-picker" id="cp3" ng-model="currentAdvert.PriceColor" />
+                </fieldset>
+                <button type="submit" class="btn btn-default submit-button" ng-click="saveAdvert()">Submit</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

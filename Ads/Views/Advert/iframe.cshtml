@@ -1,0 +1,73 @@
+﻿@{
+    Layout = null;
+}
+@model Ads.Database.Advert
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/advert.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/iframe.css" />
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/Scripts/angular.js"></script>
+    <script src="~/Scripts/Ads/iframe.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <title></title>
+</head>
+
+<body>
+    <div class="full-width">
+        <section class="my-advert">
+            <div class="container-fluid">
+                <div class="patrat"
+                     id="size-@(Model.Width)x@(Model.Height)"
+                     style="width:@(Model.Width)px;
+                                     height:@(Model.Height)px;
+                                     background-image:url('@Model.BackgroundImage');
+                                     background-color:@Model.BackgroungColor">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="logo">
+                                <img src="@Model.Logo" alt="logo" />
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        var priceFormat = "@Model.PriceFormat";
+                        var height = @Model.Height;
+                        var width = @Model.Width;
+                    </script>
+
+                    <div class="slider" ng-app="adsApp" ng-controller="iframeCtrl">
+                        <div ng-repeat="i in range(0, products.length, step)" class="product-wrapper">
+                            <div class="product">
+                                <div class="title" style="color:@Model.TitleColor">{{products[i].Title}}</div>
+                                <div class="imagine-pret">
+                                    <img ng-src="{{products[i].Image}}" alt="{{products[i].Title}}" />
+                                    <div class="price" style="color:@Model.PriceColor">{{products[i].PriceCurrency}}</div>
+                                </div>
+                                <div class="buton-cumpara">
+                                    <a ng-href="{{products[i].Url}}" target="_blank" style="color:@Model.ButtonColor">@Model.ButtonText</a>
+                                </div>
+                            </div>
+                            <div class="product" ng-if="step > 1 && i+1<products.length">
+                                <div class="title" style="color:@Model.TitleColor">{{products[i+1].Title}}</div>
+                                <div class="imagine-pret">
+                                    <img ng-src="{{products[i+1].Image}}" alt="{{products[i+1].Title}}" />
+                                    <div class="price" style="color:@Model.PriceColor">{{products[i+1].PriceCurrency}}</div>
+                                </div>
+                                <div class="buton-cumpara">
+                                    <a ng-href="{{products[i+1].Url}}" target="_blank" style="color:@Model.ButtonColor">@Model.ButtonText</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

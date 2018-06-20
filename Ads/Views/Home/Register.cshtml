@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "Register";
+}
+@model Ads.Models.ErrorResponseViewModel
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/Homepage.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap.min.css" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <title></title>
+</head>
+<div class="homepage">
+    <div class="row">
+        
+        <form action="~/Home/Register" method="post" class="form-login">
+            @{
+                if (Model != null && Model.HasErrors)
+                {
+                    foreach (var error in Model.Errors)
+                    {
+                        <p class="error">@error</p>
+                    }
+                }
+            }
+            <div class="logo-home">
+                <i class="fab fa-ravelry"></i>
+            </div>
+            <fieldset class="login-fields">
+                <i class="fas fa-users"></i>
+                <input class="form-control register-margin" type="text" name="UserName" id="UserName" placeholder="User Name"/>
+            </fieldset>
+            <fieldset class="login-fields">
+                <i class="fas fa-user"></i> 
+                <input class="form-control register-margin" type="text" name="FirstName" id="FirstName" placeholder="First Name"/>
+            </fieldset>
+            <fieldset class="login-fields">
+                <i class="far fa-user"></i>
+                <input class="form-control register-margin" type="text" name="LastName" id="LastName" placeholder="Last Name"/>  
+            </fieldset>
+            <fieldset class="login-fields">
+                <i class="fas fa-key"></i>
+                <input class="form-control register-margin" type="password" name="Password" id="Password" placeholder="Password"/>
+            </fieldset>
+            <button type="submit" class="log-in">Submit</button>
+        </form>
+    </div>
+    <div class="forgot-password">
+        <a href="~/Home/Index"><i class="fas fa-long-arrow-alt-left"></i>Back</a>
+    </div>
+</div>
+
