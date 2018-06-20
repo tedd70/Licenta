@@ -241,6 +241,8 @@
     <Content Include="Content\background.jpg" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bxslider\jquery.bxslider.css" />
+    <Content Include="Content\bxslider\jquery.bxslider.min.js" />
     <Content Include="Content\Homepage.css" />
     <Content Include="Content\iframe.css" />
     <Content Include="Database\Adverts.Context.tt">
@@ -254,9 +256,6 @@
       <LastGenOutput>Adverts.cs</LastGenOutput>
     </Content>
     <Content Include="favicon.ico" />
-    <Content Include="flexslider\flexslider-rtl-min.css" />
-    <Content Include="flexslider\flexslider.css" />
-    <Content Include="flexslider\jquery.flexslider-min.js" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\Ads\adsProperties.js" />
@@ -281,6 +280,7 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
