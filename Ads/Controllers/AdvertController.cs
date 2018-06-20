@@ -60,7 +60,12 @@ namespace Ads.Controllers
                     var fileExt = Path.GetExtension(httpPostedFile.FileName)?.Substring(1);
                     var fileName = $"{Guid.NewGuid().ToString()}.{fileExt}";
 
-                    var fileSavePath = Path.Combine(Server.MapPath("~/UploadedFiles"), fileName);
+                    string subPath = Server.MapPath("~/UploadedFiles");
+
+                    if (!Directory.Exists(subPath))
+                        Directory.CreateDirectory(subPath);
+
+                    var fileSavePath = Path.Combine(subPath, fileName);
                     httpPostedFile.SaveAs(fileSavePath);
                     result = fileName;
                 }
