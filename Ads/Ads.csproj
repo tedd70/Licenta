@@ -241,6 +241,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Homepage.css" />
+    <Content Include="Content\iframe.css" />
     <Content Include="Database\Adverts.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Adverts.edmx</DependentUpon>
