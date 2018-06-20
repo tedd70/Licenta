@@ -71,7 +71,7 @@ namespace Ads.Controllers
             {
                 var userId = user.Id.ToString();
                 var identifier = Convert.ToBase64String(Encoding.Unicode.GetBytes(userId));
-                var resetLink = $"http://ads.licenta.local/Home/ResetPassword?id={identifier}";
+                var resetLink = $"http://adslicenta.azurewebsites.net/Home/ResetPassword?id={identifier}";
                 _emailService.SendResetLinkEmail(user.Email, resetLink);
                 TempData["isSuccess"] = true;
                 return RedirectToAction("ForgotPassword", "Home");
