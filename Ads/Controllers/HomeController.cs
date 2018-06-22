@@ -19,7 +19,7 @@ namespace Ads.Controllers
         public HomeController()
         {
             _userDbContext = new UserDbContext();
-            _emailService=new EmailService();
+            _emailService = new EmailService();
         }
 
         public ActionResult Login(string userName, string password)
@@ -27,7 +27,7 @@ namespace Ads.Controllers
             var user = _userDbContext.FindByEmail(userName);
             var md5Password = CalculateMD5Hash(password);
 
-            if (user == null || !user.Password.Equals(md5Password))
+            if (user == null || !user.Password.Equals(md5Password) || !user.IsActive)
             {
                 TempData["hasErrors"] = true;
                 return RedirectToAction("Index", "Home");
@@ -72,7 +72,9 @@ namespace Ads.Controllers
                 var userId = user.Id.ToString();
                 var identifier = Convert.ToBase64String(Encoding.Unicode.GetBytes(userId));
                 var resetLink = $"http://adslicenta.azurewebsites.net/Home/ResetPassword?id={identifier}";
-                _emailService.SendResetLinkEmail(user.Email, resetLink);
+                var subject = "Reset your password";
+                var body = $"Click <a href='{resetLink}' target='_blank'>here</a> to reset your password.";
+                _emailService.SendEmail(user.Email, subject, body);
                 TempData["isSuccess"] = true;
                 return RedirectToAction("ForgotPassword", "Home");
             }
@@ -99,6 +101,25 @@ namespace Ads.Controllers
 
             ViewBag.UserId = user.Id;
             return View();
+        }
+
+        public ActionResult ConfirmEmail(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            string userId = Encoding.Unicode.GetString(Convert.FromBase64String(id));
+            var user = _userDbContext.GetById(int.Parse(userId));
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            user.IsActive = true;
+            _userDbContext.Update(user);
+
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult ChangePassword(string password, string confirmPassword, string userId)
@@ -134,14 +155,26 @@ namespace Ads.Controllers
                 return View(errorResponse);
             }
 
-            _userDbContext.Add(new User
+            var createdUser = _userDbContext.Add(new User
             {
                 Email = userName,
                 Password = CalculateMD5Hash(password),
-                IsActive = true,
+                IsActive = false,
                 FirstName = firstName,
                 LastName = lastName
             });
+
+            if (createdUser != null)
+            {
+                var userId = createdUser.Id.ToString();
+                var identifier = Convert.ToBase64String(Encoding.Unicode.GetBytes(userId));
+                var confirmationLink = $"http://adslicenta.azurewebsites.net/Home/ConfirmEmail?id={identifier}";
+                var subject = "Conrfim your email";
+                var body = $"Click <a href='{confirmationLink}' target='_blank'>here</a> to register.";
+
+                _emailService.SendEmail(createdUser.Email,subject,body);
+                TempData["isEmailSent"] = true;
+            }
             return RedirectToAction("Index", "Home");
         }
     }

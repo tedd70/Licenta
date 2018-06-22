@@ -21,10 +21,10 @@ namespace Ads.Services
             };
         }
 
-        public void SendResetLinkEmail(string userEmail, string resetLink)
+        public void SendEmail(string userEmail, string subject, string body)
         {
-             var msg = new MailMessage(_fromEmail, userEmail, "Reset your password",
-                $"Click <a href='{resetLink}' target='_blank'>here</a> to reset your password.");
+             var msg = new MailMessage(_fromEmail, userEmail, subject,
+                body);
             msg.IsBodyHtml = true;
 
             _client.Send(msg);
@@ -33,6 +33,6 @@ namespace Ads.Services
 
     public interface IEmailService
     {
-        void SendResetLinkEmail(string userEmail, string resetLink);
+        void SendEmail(string userEmail, string subject, string body);
     }
 }

@@ -18,6 +18,10 @@
                 {
                     <h3 style="color:red">Invalid username or password</h3>
                 }
+                if (TempData["isEmailSent"] != null && (Boolean)TempData["isEmailSent"])
+                {
+                    <h3 style="color:red">An email was sent to you.</h3>
+                }
             }
             <div class="advert">
                 <i class="fab fa-ravelry"></i>
