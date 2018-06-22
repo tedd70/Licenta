@@ -23,11 +23,17 @@ namespace Ads.Services
 
         public void SendEmail(string userEmail, string subject, string body)
         {
-             var msg = new MailMessage(_fromEmail, userEmail, subject,
+            try
+            {
+                var msg = new MailMessage(_fromEmail, userEmail, subject,
                 body);
             msg.IsBodyHtml = true;
 
-            _client.Send(msg);
+            
+                _client.Send(msg);
+            }
+            catch
+            { }
         }
     }
 

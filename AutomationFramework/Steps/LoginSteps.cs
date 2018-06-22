@@ -55,7 +55,7 @@ namespace AutomationFramework.Steps
         [Then(@"the user is succesfully logged in into the application")]
         public void ThenTheUserIsSuccesfullyLoggedInIntoTheApplication()
         {
-            Browser.driver.Url.ShouldBe("http://ads.licenta.local/Configuration");
+            Browser.driver.Url.ShouldContain("http://ads.licenta.local");
             Thread.Sleep(2500);
         }
 
