@@ -195,6 +195,11 @@ app.controller('adsCtrl', function ($scope, $http) {
         $scope.sizes = $scope.sizes.filter(function (el) { return el.Id != id; });
     }
 
+    $scope.logout = function () {
+        document.cookie = "userId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.location = "";
+    }
+
     $scope.getAllSizes();
     $scope.getProducts();
 

@@ -1,7 +1,6 @@
 ﻿@{
     Layout = null;
 }
-@model List<Ads.Database.Advert>
 
 <!DOCTYPE html>
 
@@ -23,6 +22,7 @@
 
 <body>
     <div ng-app="adsApp" ng-controller="adsCtrl">
+        <a id="logout-button" ng-click="logout()">Log Out <i class="fas fa-sign-out-alt"></i></a>
         <div id="header" class="full-width">
             <div class="tab-container">
                 <div ng-repeat="advert in sizes" class="tab-wrapper">
@@ -43,6 +43,7 @@
             </div>
             <div id="content">
                 <div id="preview" class="full-width">
+                    <a id="preview-link" ng-if="currentAdvert && currentAdvert.Id && currentAdvert.Id != 0 " href="~/advert/iframe?advertId={{currentAdvert.Id}}" target="_blank">Preview <i class="fas fa-external-link-alt"></i></a>
                     <section class="my-advert">
                         <div class="container-fluid">
                             <div

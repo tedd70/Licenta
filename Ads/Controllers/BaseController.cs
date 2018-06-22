@@ -15,5 +15,7 @@ namespace Ads.Controllers
     public class BaseController : Controller
     {
         public int userId => int.Parse(Request.Cookies["userId"].Value);
+        public HttpCookie userIdCookie => Request.Cookies["userId"];
+        public bool isAuthenticated => (userIdCookie != null && !string.IsNullOrEmpty(userIdCookie.Value));
     }
 }

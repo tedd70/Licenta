@@ -4,7 +4,7 @@ using System.Web.Mvc;
 
 namespace Ads.Controllers
 {
-    public class ConfigurationController : Controller
+    public class ConfigurationController : BaseController
     {
         private IAdsDbContext _adsDbContext;
         public ConfigurationController()
@@ -13,8 +13,11 @@ namespace Ads.Controllers
         }
         public ActionResult Index()
         {
-            var adsList = _adsDbContext.GetAll();
-            return View(adsList);
+            if (!isAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return View();
         }
         public Advert GetAdvert(int advertId)
         {
@@ -22,7 +25,7 @@ namespace Ads.Controllers
         }
 
         public Advert Add(Advert advert)
-        { 
+        {
             return null;
         }
     }
