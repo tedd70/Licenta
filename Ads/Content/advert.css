@@ -36,7 +36,7 @@ body {
     display: flex;
     justify-content: center;
     margin-bottom: 40px;
-    margin-top: 70px;
+    padding-top: 30px;
 }
 
 .tab-item {
