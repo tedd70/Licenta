@@ -37,7 +37,7 @@ namespace Ads.Controllers
                 new Product
                 {
                     Currency="RON",
-                    Image="http://www.katiesproperpate.co.uk/images/w5APNBV2qxy/air-max-2013-nike-shoes-30MP.jpg",
+                    Image="https://c.static-nike.com/a/images/t_PDP_864_v1/f_auto/cna0q5tvlmb9lfdbne5m/air-max-97-shoe-z3TlrlVN.jpg",
                     Id=3,
                     Price=249,
                     OldPrice=399,
@@ -49,7 +49,7 @@ namespace Ads.Controllers
                 new Product
                 {
                     Currency="$",
-                    Image="http://www.katiesproperpate.co.uk/images/w5APNBV2qxy/air-max-2013-nike-shoes-30MP.jpg",
+                    Image="https://c.static-nike.com/a/images/t_PDP_864_v1/f_auto/axjsjtginfybsjoriwec/jordan-flyknit-elevation-23-shoe-2Mw3Y0.jpg",
                     Id=4,
                     Price=199,
                     OldPrice=249,
