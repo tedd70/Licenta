@@ -54,7 +54,7 @@ namespace Ads.Controllers
                     Price=199,
                     OldPrice=249,
                     Title="Walking shoes",
-                    Url="www.nike.com",
+                    Url="http://www.nike.com",
                     Description=""
                 }
             };
