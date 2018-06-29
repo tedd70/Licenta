@@ -172,10 +172,20 @@ namespace Ads.Controllers
                 var subject = "Conrfim your email";
                 var body = $"Click <a href='{confirmationLink}' target='_blank'>here</a> to register.";
 
-                _emailService.SendEmail(createdUser.Email,subject,body);
+                _emailService.SendEmail(createdUser.Email, subject, body);
                 TempData["isEmailSent"] = true;
             }
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public void DeleteUser(string email)
+        {
+            var user = _userDbContext.FindByEmail(email);
+            if (user != null) {
+                _userDbContext.Delete(user.Id);
+            }
+
         }
     }
 }
