@@ -232,6 +232,7 @@ app.controller('adsCtrl', function ($scope, $http) {
         if (newVal) {
             $scope.currentAdvert.Width = newVal.split('x')[0];
             $scope.currentAdvert.Height = newVal.split('x')[1];
+            setTimeout(function () { $scope.initSlider()}, 100);
         }
     });
 });
