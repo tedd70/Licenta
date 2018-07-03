@@ -25,12 +25,12 @@ namespace Ads.Controllers
                 new Product
                 {
                     Currency="RON",
-                    Image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRn8whj7DbffK_ax0FhAd-pOiXRxmV2lRIPp-aYjCzgezdvsdB-5w",
+                    Image="https://images.nike.com/is/image/DotCom/PDP_HERO/AO5117_100_A_PREM/air-max-plus-nic-qs-shoe.jpg",
                     Id=2,
                     Price=300,
                     OldPrice=449,
                     Title="Professional Bascketball Shoes",
-                    Url="http://www.nike.com",
+                    Url="https://store.nike.com/ro/en_gb/pd/air-max-plus-nic-qs-shoe/pid-12257967/pgid-12364962",
                     Description=""
                 },
 
