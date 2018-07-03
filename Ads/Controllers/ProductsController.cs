@@ -29,7 +29,7 @@ namespace Ads.Controllers
                     Id=2,
                     Price=300,
                     OldPrice=449,
-                    Title="Professional Bascketball Shoes",
+                    Title="Lifestyle Shoes",
                     Url="https://store.nike.com/ro/en_gb/pd/air-max-plus-nic-qs-shoe/pid-12257967/pgid-12364962",
                     Description=""
                 },
